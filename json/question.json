@@ -1,0 +1,23 @@
+[
+    {
+        "answer":"apple",
+        "options":["mango","apple","lemon","banana"],
+        "img":"apple.jpg"
+    },{
+        "answer":"mango",
+        "options":["mango","fish","lemon","banana"],
+        "img":"mango.jpg"
+    },{
+        "answer":"banana",
+        "options":["banana","mango","apple","fish"],
+        "img":"banana.jpg"
+    },{
+        "answer":"lemon",
+        "options":["fish","apple","lemon","photato"],
+        "img":"lemon.jpg"
+    },{
+        "answer":"fish",
+        "options":["fish","apple","launch","chocolate"],
+        "img":"fish.jpg"
+    }
+]

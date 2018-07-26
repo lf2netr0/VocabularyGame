@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="./script/jquery-3.3.1.min.js"></script>
+    <script src="./script/bootstraps/bootstrap.min.js"></script>
+    <script src="./script/stringFormat.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style/bootstraps/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row start">
+            <button class="col-sm-12 btn btn-primary" id='start'>點我開始</button>
+        </div>
+        <div class="row answerArea">
+            <div class="col-sm">
+                <h1 id="title"></h1>
+                <canvas id='canvas' width='200' height='200'></canvas>
+            </div>
+            <div class="col-sm">
+                <div class="row" id="options">
+                </div>
+            </div>
+        </div>
+        <div class="row clearArea" style="display: none;border:1px black solid;margin-top:40px;">
+            <div class="col-sm-12" style="text-align: center;">
+                <h1 style="font-size: 4vw;" id="clearTitle">Clear</h1>
+            </div>
+            <div class="col-sm-12">
+                <div class="row" id="starBlock">
+                </div>
+            </div>
+            <div class="col-sm-12" id="person">
+            </div>
+            <div class="col-sm-12" id="personSad">
+            </div>
+
+        </div>
+        <iframe width="560" height="50" src="" frameborder="0"
+            allow="autoplay; encrypted-media" id="player" hidden></iframe>
+        
+    </div>
+
+    <script src="./script/canvas.js"></script>
+    <script>
+        questionIndex = 0;
+        correctAns = 0;
+        str = '<button class="col-sm-12 btn btn-info" a="{1}" onclick="checkAnswer(this)">{0} {1}</button>';
+
+        questions = [];
+
+        $('#start').click(function(){
+            $('#player').attr('src','https://www.youtube.com/embed/6V7oVQ05oSA?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1')
+            $('.start').css('display','none');
+            $('.answerArea').css('display', 'block');
+            $.getJSON("./json/question.json", function (data) {
+                questions = data;
+                nextQ()
+                startTime();
+            });
+
+        })
+        
+        
+        function checkAnswer(ele) {
+            
+            if (questionIndex < questions.length) {
+                if ($(ele).attr('a') == questions[questionIndex].answer) {
+                    correctAns += 1;
+                    var audio = new Audio("./audio/crrect_answer3.mp3");
+                    audio.play();
+                }
+                else {
+                    subtractSec();// 扣秒
+                    var audio = new Audio("./audio/blip03.mp3");
+                    audio.play();
+                }
+
+                if (questionIndex == questions.length -1){
+                    clear();
+                }else{
+                    questionIndex += 1;
+                    nextQ()
+                }
+               
+            }
+
+        }
+        function nextQ(){
+            var output = '',url = 'url("./img/{0}")';
+            
+            console.log(questionIndex ,questions.length)
+            if (questionIndex < questions.length) {
+                for (var i = 0; i < questions[questionIndex].options.length; i++) {
+                    output += str.format(i + 1 + '.', questions[questionIndex].options[i]);
+                }
+                $('#options').html(output)
+                $('#options button').hover(function(){
+                    var audio = new Audio("./audio/option.mp3");
+                    audio.play();
+                })
+                $('#canvas').css('background-image', url.format(questions[questionIndex].img) );
+                $('#title').html('第' + (questionIndex + 1) + '題');
+            }
+        }
+    </script>
+
+
+    <link rel="stylesheet" type="text/css" href="./style/canvas.css">
+    <style>
+        #options {
+            margin-top: 56px;
+        }
+
+        #options button {
+            margin-bottom: 5px;
+            padding: 5px;
+        }
+    </style>
+</body>
+
+</html>

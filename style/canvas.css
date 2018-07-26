@@ -1,0 +1,48 @@
+canvas {
+    background-size: 200px 200px;
+  }
+#person{
+    background-image: url("../img/person.png") ;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height:12vw;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#personSad{
+  display: none;
+  background-image: url("../img/personSad.png") ;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height:12vw;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.star{
+  background-image: url("../img/star.png") ;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height:5.5vw;
+  margin-top: 20px;
+
+}
+.starEmpty{
+  background-image: url("../img/starEmpty.png") ;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height:5.5vw;
+  margin-top: 20px;
+
+}
+
+.answerArea{
+  display: none;
+  background-color: antiquewhite;
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+}
